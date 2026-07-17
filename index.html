@@ -2,35 +2,28 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <!-- 스마트폰 화면 크기에 딱 맞추고 확대/축소 방지 -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>나만의 슬로우 조깅</title>
-  
-  <!-- ★ 핵심: 앱처럼 주소창을 없애고 전체화면으로 열리게 하는 강제 코드 -->
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  
-  <!-- 앱 신분증(매니페스트) 및 디자인(CSS) 연결 -->
   <link rel="manifest" href="manifest.json">
-  <link rel="stylesheet" href="style.css">
+  
+  <!-- 핵심 마법: 이름 뒤에 물음표와 숫자를 달아서 새 파일임을 강제로 알립니다 -->
+  <link rel="stylesheet" href="style.css?v=3">
 </head>
 <body>
-  <!-- 상단 제목 및 다크모드 버튼 -->
   <header style="display: flex; justify-content: space-between; align-items: center; padding: 20px;">
     <h1 style="font-size: 24px; margin: 0;">나만의 슬로우 조깅</h1>
     <button id="darkModeBtn" style="padding: 8px 12px; border-radius: 20px; border: 1px solid #ddd; background: #f8f9fa;">다크 모드</button>
   </header>
 
-  <!-- 서브 타이틀 -->
   <section style="padding: 0 20px 20px 20px;">
     <h2 style="color: #6a5acd; font-size: 18px; margin: 0 0 5px 0;">아주 천천히 달리는 4주 프로그램</h2>
     <p style="color: #888; font-size: 14px; margin: 0;">휴식 없이 30분 달리기를 향해 출발!</p>
   </section>
 
-  <!-- 메인 4주차 프로그램 리스트 -->
   <main style="padding: 0 20px;">
-    <!-- 일 주차 -->
     <h3 style="margin-top: 10px; margin-bottom: 10px;">일 주차</h3>
     <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px;">
       <div style="border: 1px solid #eee; border-radius: 12px; padding: 15px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
@@ -44,7 +37,6 @@
       </div>
     </div>
     
-    <!-- 이 주차 -->
     <h3 style="margin-top: 10px; margin-bottom: 10px;">이 주차</h3>
     <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px;">
       <div style="border: 1px solid #eee; border-radius: 12px; padding: 15px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
@@ -58,7 +50,6 @@
       </div>
     </div>
 
-    <!-- 삼 주차 -->
     <h3 style="margin-top: 10px; margin-bottom: 10px;">삼 주차</h3>
     <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px;">
       <div style="border: 1px solid #eee; border-radius: 12px; padding: 15px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
@@ -72,7 +63,6 @@
       </div>
     </div>
 
-    <!-- 사 주차 -->
     <h3 style="margin-top: 10px; margin-bottom: 10px;">사 주차</h3>
     <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px;">
       <div style="border: 1px solid #eee; border-radius: 12px; padding: 15px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
@@ -87,19 +77,18 @@
     </div>
   </main>
 
-  <!-- 기능 작동 자바스크립트 연결 -->
-  <script src="main.js"></script>
+  <!-- 핵심 마법: 자바스크립트 뒤에도 버전 꼬리표를 답니다 -->
+  <script src="main.js?v=3"></script>
   
-  <!-- ★ 핵심: 진짜 앱으로 만들어주는 서비스 워커 실행 코드 -->
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         navigator.serviceWorker.register('./sw.js')
           .then(registration => {
-            console.log('서비스 워커 등록 성공:', registration.scope);
+            console.log('서비스 워커 등록 성공');
           })
           .catch(error => {
-            console.log('서비스 워커 등록 실패:', error);
+            console.log('서비스 워커 등록 실패');
           });
       });
     }
