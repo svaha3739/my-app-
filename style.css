@@ -1,0 +1,135 @@
+:root {
+    --bg-color: #f8f9fa;
+    --text-color: #333333;
+    --primary-color: #7b61ff;
+    --card-bg: #ffffff;
+    --border-color: #dddddd;
+    --box-shadow: rgba(0, 0, 0, 0.05);
+    --walk-color: #4facfe;
+    --run-color: #ff5858;
+}
+
+[data-theme="dark"] {
+    --bg-color: #121212;
+    --text-color: #f5f5f5;
+    --primary-color: #9d88ff;
+    --card-bg: #121212; /* 모바일 풀화면을 위해 카드 배경도 메인 배경과 통일 */
+    --border-color: #333333;
+    --box-shadow: none;
+}
+
+body {
+    background-color: var(--card-bg); /* 컴퓨터에서도 모바일처럼 보이게 통일 */
+    color: var(--text-color);
+    font-family: 'Malgun Gothic', -apple-system, sans-serif;
+    margin: 0;
+    padding: 0; /* 모바일 앱처럼 여백 제거 */
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+/* 💡 새로 변경된 부분: 진짜 스마트폰 앱처럼 화면 전체를 꽉 채우게 수정 */
+.container {
+    width: 100%;
+    max-width: 480px; /* 컴퓨터에서 켰을 때도 딱 스마트폰 크기로 보이게 함 */
+    background-color: var(--card-bg);
+    padding: 20px 20px 100px 20px; /* 하단 버튼을 위해 아래쪽 여백 넉넉히 */
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.container.run-mode { border-top: 8px solid var(--run-color); }
+.container.walk-mode { border-top: 8px solid var(--walk-color); }
+
+header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); padding-bottom: 15px; margin-bottom: 25px; }
+h1 { margin: 0; font-size: 22px; }
+.plan-header h2 { font-size: 18px; color: var(--primary-color); margin-bottom: 5px; }
+.plan-header p { font-size: 14px; color: #888; margin-top: 0; }
+.week-section { margin-bottom: 20px; }
+.week-title { font-weight: bold; margin-bottom: 12px; font-size: 16px; }
+
+/* 💡 새로 변경된 부분: 모바일에서 버튼들이 예쁘게 3칸씩 꽉 차도록 그리드(Grid) 기술 적용 */
+.course-buttons { 
+    display: grid; 
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 12px; 
+}
+
+.course-btn { 
+    background-color: transparent; 
+    border: 2px solid var(--border-color); 
+    border-radius: 12px; 
+    padding: 15px 5px; 
+    font-size: 18px; /* 터치하기 좋게 글씨 크기 키움 */
+    font-weight: bold; 
+    color: var(--text-color); 
+    cursor: pointer; 
+    text-align: center;
+    position: relative; 
+    overflow: hidden;
+    touch-action: manipulation; /* 모바일 터치 반응 속도 향상 */
+}
+
+.course-btn span { font-size: 13px; font-weight: normal; color: #888; display: block; margin-top: 5px; }
+.course-btn.active { border-color: var(--primary-color); background-color: rgba(123, 97, 255, 0.1); color: var(--primary-color); }
+
+/* --- 타이머 화면 전용 디자인 --- */
+.stage-title { text-align: center; font-size: 32px; margin: 20px 0 40px; }
+.run-mode .stage-title { color: var(--run-color); }
+.walk-mode .stage-title { color: var(--walk-color); }
+
+/* 💡 새로 변경된 부분: 스마트폰 화면 크기에 맞춰 동적으로 커지는 타이머 원 */
+.timer-circle {
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    width: 65vw; height: 65vw; max-width: 280px; max-height: 280px;
+    border-radius: 50%;
+    margin: 0 auto 40px; 
+    background-color: var(--bg-color);
+    box-shadow: inset 0 4px 15px var(--box-shadow);
+}
+.interval-time { font-size: 60px; font-weight: bold; letter-spacing: -2px; }
+.interval-label { font-size: 15px; color: #888; margin-top: 5px; }
+
+.total-progress { text-align: center; margin-bottom: 30px; font-size: 18px; }
+.next-stage-text { color: #888; font-size: 15px; margin-top: 10px; }
+
+/* 💡 새로 변경된 부분: 스마트폰 하단에 딱 달라붙는 고정 컨트롤 바 */
+.action-area, .controls.action-content {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 480px;
+    padding: 15px 20px 25px 20px; /* 아이폰 하단 바 고려 여백 */
+    background-color: var(--card-bg);
+    box-shadow: 0 -4px 15px rgba(0,0,0,0.05);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+}
+
+.controls.action-content { flex-direction: row; gap: 15px; }
+
+.action-area h3 { margin: 0 0 15px 0; font-size: 16px; text-align: center; }
+
+.btn { padding: 18px; border: none; border-radius: 12px; font-size: 18px; cursor: pointer; font-weight: bold; width: 100%; }
+.primary-btn { background-color: var(--primary-color); color: white; }
+.pause-btn { background-color: #f1c40f; color: #333; flex: 1; }
+.stop-btn { background-color: #e74c3c; color: white; flex: 1; }
+.small-btn { padding: 8px 12px; font-size: 14px; background-color: var(--bg-color); color: var(--text-color); width: auto; }
+
+/* 도장 디자인 유지 */
+.completed-stamp {
+    position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-20deg);
+    color: rgba(123, 97, 255, 0.85); border: 3px solid rgba(123, 97, 255, 0.85);
+    border-radius: 50%; padding: 10px 15px; font-size: 16px; font-weight: 900;
+    letter-spacing: 2px; pointer-events: none; display: none; 
+    background-color: rgba(255, 255, 255, 0.8);
+}
+[data-theme="dark"] .completed-stamp { color: rgba(157, 136, 255, 0.9); border-color: rgba(157, 136, 255, 0.9); background-color: rgba(18, 18, 18, 0.8); }
+.course-btn.done .completed-stamp { display: block; }
+.course-btn.done { opacity: 0.7; border-color: var(--primary-color); }
