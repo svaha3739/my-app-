@@ -9,7 +9,8 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <link rel="manifest" href="manifest.json">
+  <!-- ★수정됨: 깃허브 경로에 맞게 ./ 추가 -->
+  <link rel="manifest" href="./manifest.json">
   
   <style>
     :root {
@@ -249,6 +250,7 @@
 
     window.selectCourse = function(courseNumber, minutes, element) {
         currentSelectedCourse = courseNumber;
+        
         const allButtons = document.querySelectorAll('.course-btn');
         allButtons.forEach(btn => btn.classList.remove('active'));
         element.classList.add('active');
@@ -446,12 +448,12 @@
         currentAudioPlayer.onended = () => { if (callback) callback(); };
     }
 
-    // ★ 진짜 앱 설치를 위한 핵심: 서비스 워커 강제 삭제 코드 제거 후 등록(register)으로 교체!
+    // ★수정됨: 엔진(캐시) 삭제 코드를 지우고 앱 설치를 위한 '엔진 장착(register)' 코드로 교체했습니다!
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('./sw.js')
-            .then(reg => console.log('서비스 워커가 등록되었습니다. 이제 앱으로 설치 가능합니다.'))
-            .catch(err => console.log('서비스 워커 등록 실패:', err));
+            .then(reg => console.log('엔진 장착 성공! 앱으로 설치할 수 있습니다.'))
+            .catch(err => console.log('엔진 장착 실패:', err));
         });
     }
   </script>

@@ -2,17 +2,19 @@
   "name": "나만의 슬로우 조깅",
   "short_name": "슬로우조깅",
   "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#6a5acd",
   "icons": [
     {
-      "src": "icon.jpeg",
+      "src": "./icon.jpeg",
       "sizes": "192x192",
-      "type": "image/jpeg"
+      "type": "image/jpeg",
+      "purpose": "any maskable"
     },
     {
-      "src": "icon.jpeg",
+      "src": "./icon.jpeg",
       "sizes": "512x512",
       "type": "image/jpeg"
     }
