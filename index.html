@@ -11,7 +11,6 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <link rel="manifest" href="manifest.json">
   
-  <!-- [디자인 영역] 파일이 갈라지지 않도록 여기에 완전히 묶어버립니다 -->
   <style>
     :root {
       --bg-color: #f4f4f9; --app-bg: #ffffff; --text-color: #333333;
@@ -95,7 +94,6 @@
         <p>휴식 없이 30분 달리기를 향해 출발!</p>
       </section>
 
-      <!-- 에러 원천 차단: 직관적인 onclick 명령어로 강제 복구했습니다. -->
       <h3>일 주차</h3>
       <div class="grid-wrap">
         <div class="course-btn" onclick="selectCourse(1, 26, this)"><h4>1회차</h4><p>26:00</p></div>
@@ -143,7 +141,6 @@
     </div>
   </div>
 
-  <!-- [기능 엔진 영역] 자바스크립트도 이 파일 안에 완전히 박아 넣습니다 -->
   <script>
     const allSessions = {
         1: [
@@ -250,11 +247,8 @@
     let currentAudioPlayer = null; 
     let audioCtx;
 
-    // 코스 선택 함수 (무조건 작동하게 전역으로 설정)
     window.selectCourse = function(courseNumber, minutes, element) {
         currentSelectedCourse = courseNumber;
-        
-        // 모든 버튼 활성화 제거 후 방금 누른 버튼만 켜기
         const allButtons = document.querySelectorAll('.course-btn');
         allButtons.forEach(btn => btn.classList.remove('active'));
         element.classList.add('active');
@@ -270,12 +264,10 @@
         const pauseBtn = document.getElementById('pauseBtn');
         const stopBtn = document.getElementById('stopBtn');
 
-        // ★ [완벽 해결] 다크 모드/라이트 모드 상태 기억 및 불러오기 추가
         const savedTheme = localStorage.getItem('jogging-theme') || 'light';
         document.body.setAttribute('data-theme', savedTheme);
         themeToggle.textContent = savedTheme === 'dark' ? '라이트 모드' : '다크 모드';
 
-        // ★ [완벽 해결] 버튼 클릭 시 상태 저장 로직 업데이트
         themeToggle.addEventListener('click', () => {
             if (document.body.getAttribute('data-theme') === 'dark') {
                 document.body.setAttribute('data-theme', 'light');
@@ -288,7 +280,6 @@
             }
         });
 
-        // 도장 찍기 로직
         function loadStamps() {
             let completedCourses = JSON.parse(localStorage.getItem('joyRunRecords') || '[]');
             const allButtons = document.querySelectorAll('.course-btn');
@@ -308,7 +299,6 @@
         }
         loadStamps();
 
-        // 시작 버튼 (비프음 및 음성 강제 활성화 포함)
         startBtn.addEventListener('click', () => {
             if (!audioCtx) {
                 audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -456,13 +446,12 @@
         currentAudioPlayer.onended = () => { if (callback) callback(); };
     }
 
-    // 서비스 워커(캐시) 강제 삭제 (옛날 기억을 완벽히 소거합니다)
+    // ★ 진짜 앱 설치를 위한 핵심: 서비스 워커 강제 삭제 코드 제거 후 등록(register)으로 교체!
     if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.getRegistrations().then(function(registrations) {
-            for(let registration of registrations) { registration.unregister(); }
-        });
-        caches.keys().then(function(names) {
-            for (let name of names) { caches.delete(name); }
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('./sw.js')
+            .then(reg => console.log('서비스 워커가 등록되었습니다. 이제 앱으로 설치 가능합니다.'))
+            .catch(err => console.log('서비스 워커 등록 실패:', err));
         });
     }
   </script>
