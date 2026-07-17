@@ -1,10 +1,8 @@
-// 캐시 이름을 버전 삼으로 올려서 옛날 기억을 지웁니다.
-const CACHE_NAME = 'slow-jogging-v3';
+const CACHE_NAME = 'slow-jogging-final-v1';
 const urlsToCache = [
   './',
   './index.html',
-  './main.js?v=3',
-  './style.css?v=3',
+  './main.js?v=8',
   './Icon.jpeg'
 ];
 
@@ -24,7 +22,7 @@ self.addEventListener('activate', event => {
       return Promise.all(
         cacheNames.map(cache => {
           if (cache !== CACHE_NAME) {
-            return caches.delete(cache);
+            return caches.delete(cache); // 옛날 에러 났던 기억들 쓰레기통으로 완벽 삭제!
           }
         })
       );

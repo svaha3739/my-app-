@@ -9,89 +9,180 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <link rel="manifest" href="manifest.json">
   
-  <!-- 핵심 마법: 이름 뒤에 물음표와 숫자를 달아서 새 파일임을 강제로 알립니다 -->
-  <link rel="stylesheet" href="style.css?v=3">
-</head>
-<body>
-  <header style="display: flex; justify-content: space-between; align-items: center; padding: 20px;">
-    <h1 style="font-size: 24px; margin: 0;">나만의 슬로우 조깅</h1>
-    <button id="darkModeBtn" style="padding: 8px 12px; border-radius: 20px; border: 1px solid #ddd; background: #f8f9fa;">다크 모드</button>
-  </header>
-
-  <section style="padding: 0 20px 20px 20px;">
-    <h2 style="color: #6a5acd; font-size: 18px; margin: 0 0 5px 0;">아주 천천히 달리는 4주 프로그램</h2>
-    <p style="color: #888; font-size: 14px; margin: 0;">휴식 없이 30분 달리기를 향해 출발!</p>
-  </section>
-
-  <main style="padding: 0 20px;">
-    <h3 style="margin-top: 10px; margin-bottom: 10px;">일 주차</h3>
-    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px;">
-      <div style="border: 1px solid #eee; border-radius: 12px; padding: 15px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
-        <h4 style="margin: 0 0 5px 0; font-size: 16px;">1회차</h4><p style="margin: 0; color: #888; font-size: 12px;">26:00</p>
-      </div>
-      <div style="border: 1px solid #eee; border-radius: 12px; padding: 15px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
-        <h4 style="margin: 0 0 5px 0; font-size: 16px;">2회차</h4><p style="margin: 0; color: #888; font-size: 12px;">27:00</p>
-      </div>
-      <div style="border: 1px solid #eee; border-radius: 12px; padding: 15px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
-        <h4 style="margin: 0 0 5px 0; font-size: 16px;">3회차</h4><p style="margin: 0; color: #888; font-size: 12px;">28:00</p>
-      </div>
-    </div>
-    
-    <h3 style="margin-top: 10px; margin-bottom: 10px;">이 주차</h3>
-    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px;">
-      <div style="border: 1px solid #eee; border-radius: 12px; padding: 15px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
-        <h4 style="margin: 0 0 5px 0; font-size: 16px;">4회차</h4><p style="margin: 0; color: #888; font-size: 12px;">30:00</p>
-      </div>
-      <div style="border: 1px solid #eee; border-radius: 12px; padding: 15px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
-        <h4 style="margin: 0 0 5px 0; font-size: 16px;">5회차</h4><p style="margin: 0; color: #888; font-size: 12px;">33:00</p>
-      </div>
-      <div style="border: 1px solid #eee; border-radius: 12px; padding: 15px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
-        <h4 style="margin: 0 0 5px 0; font-size: 16px;">6회차</h4><p style="margin: 0; color: #888; font-size: 12px;">34:00</p>
-      </div>
-    </div>
-
-    <h3 style="margin-top: 10px; margin-bottom: 10px;">삼 주차</h3>
-    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px;">
-      <div style="border: 1px solid #eee; border-radius: 12px; padding: 15px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
-        <h4 style="margin: 0 0 5px 0; font-size: 16px;">7회차</h4><p style="margin: 0; color: #888; font-size: 12px;">37:00</p>
-      </div>
-      <div style="border: 1px solid #eee; border-radius: 12px; padding: 15px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
-        <h4 style="margin: 0 0 5px 0; font-size: 16px;">8회차</h4><p style="margin: 0; color: #888; font-size: 12px;">36:00</p>
-      </div>
-      <div style="border: 1px solid #eee; border-radius: 12px; padding: 15px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
-        <h4 style="margin: 0 0 5px 0; font-size: 16px;">9회차</h4><p style="margin: 0; color: #888; font-size: 12px;">36:00</p>
-      </div>
-    </div>
-
-    <h3 style="margin-top: 10px; margin-bottom: 10px;">사 주차</h3>
-    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px;">
-      <div style="border: 1px solid #eee; border-radius: 12px; padding: 15px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
-        <h4 style="margin: 0 0 5px 0; font-size: 16px;">10회차</h4><p style="margin: 0; color: #888; font-size: 12px;">36:00</p>
-      </div>
-      <div style="border: 1px solid #eee; border-radius: 12px; padding: 15px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
-        <h4 style="margin: 0 0 5px 0; font-size: 16px;">11회차</h4><p style="margin: 0; color: #888; font-size: 12px;">36:30</p>
-      </div>
-      <div style="border: 1px solid #eee; border-radius: 12px; padding: 15px; text-align: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05);">
-        <h4 style="margin: 0 0 5px 0; font-size: 16px;">12회차</h4><p style="margin: 0; color: #888; font-size: 12px;">38:00</p>
-      </div>
-    </div>
-  </main>
-
-  <!-- 핵심 마법: 자바스크립트 뒤에도 버전 꼬리표를 답니다 -->
-  <script src="main.js?v=3"></script>
-  
-  <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js')
-          .then(registration => {
-            console.log('서비스 워커 등록 성공');
-          })
-          .catch(error => {
-            console.log('서비스 워커 등록 실패');
-          });
-      });
+  <!-- CSS 디자인 코드를 파일 내부에 직접 삽입하여 깨짐 현상을 100% 방지합니다 -->
+  <style>
+    :root {
+      --bg-color: #f4f4f9;
+      --app-bg: #ffffff;
+      --text-color: #333333;
+      --btn-bg: #ffffff;
+      --btn-border: #dddddd;
+      --primary-color: #6a5acd;
+      --run-bg: #ffe4e1;
+      --walk-bg: #e0ffff;
     }
-  </script>
+
+    body[data-theme="dark"] {
+      --bg-color: #000000;
+      --app-bg: #121212;
+      --text-color: #ffffff;
+      --btn-bg: #1e1e1e;
+      --btn-border: #444444;
+      --run-bg: #4a1c1c;
+      --walk-bg: #1c3c4a;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      transition: background-color 0.3s;
+    }
+
+    #appContainer {
+      max-width: 480px;
+      margin: 0 auto;
+      background-color: var(--app-bg);
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      padding-bottom: 20px;
+      transition: background-color 0.5s ease-in-out;
+    }
+
+    #appContainer.run-mode { background-color: var(--run-bg); }
+    #appContainer.walk-mode { background-color: var(--walk-bg); }
+
+    header { display: flex; justify-content: space-between; align-items: center; padding: 20px; }
+    header h1 { font-size: 20px; margin: 0; }
+
+    #themeToggle {
+      padding: 8px 12px; border-radius: 20px; border: 1px solid var(--btn-border);
+      background: var(--btn-bg); color: var(--text-color); cursor: pointer;
+    }
+
+    section.intro { padding: 0 20px 20px 20px; }
+    section.intro h2 { color: var(--primary-color); font-size: 18px; margin: 0 0 5px 0; }
+    section.intro p { color: #888; font-size: 14px; margin: 0; }
+
+    h3 { margin: 10px 20px; }
+
+    .grid-wrap {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 0 20px 20px 20px;
+    }
+
+    .course-btn {
+      position: relative;
+      border: 1px solid var(--btn-border); 
+      border-radius: 12px; 
+      padding: 15px; 
+      text-align: center; 
+      cursor: pointer;
+      transition: all 0.2s;
+      background-color: var(--btn-bg);
+    }
+    .course-btn h4 { margin: 0 0 5px 0; font-size: 16px; color: var(--text-color); }
+    .course-btn p { margin: 0; color: #888; font-size: 12px; }
+
+    .course-btn.active {
+      border-color: var(--primary-color);
+      background-color: rgba(106, 90, 205, 0.1);
+      transform: scale(1.05);
+    }
+
+    .course-btn.done {
+      background-color: var(--primary-color);
+      border-color: var(--primary-color);
+    }
+    .course-btn.done h4, .course-btn.done p { 
+      color: white; 
+      text-decoration: line-through; 
+    }
+
+    .completed-stamp {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-15deg);
+      font-size: 18px; font-weight: bold; color: rgba(255,255,255,0.9);
+      border: 2px solid rgba(255,255,255,0.9); padding: 2px 5px; border-radius: 5px;
+      pointer-events: none;
+    }
+
+    #startBtn {
+      background-color: var(--primary-color); color: white; border: none;
+      padding: 15px 30px; border-radius: 30px; font-size: 18px; font-weight: bold;
+      cursor: pointer; width: 80%; box-shadow: 0 4px 10px rgba(106, 90, 205, 0.4);
+    }
+
+    .control-btn {
+      padding: 15px 25px; border-radius: 10px; border: none; font-size: 16px; font-weight: bold;
+      background-color: #555; color: white; cursor: pointer; width: 120px;
+    }
+    .stop-btn { background-color: #e74c3c; }
+  </style>
+</head>
+<body data-theme="light">
+  <div id="appContainer" class="container">
+    
+    <header>
+      <h1>나만의 슬로우 조깅</h1>
+      <button id="themeToggle">다크 모드</button>
+    </header>
+
+    <div id="calendarScreen">
+      <section class="intro">
+        <h2>아주 천천히 달리는 4주 프로그램</h2>
+        <p>휴식 없이 30분 달리기를 향해 출발!</p>
+      </section>
+
+      <h3>일 주차</h3>
+      <div class="grid-wrap">
+        <div class="course-btn" onclick="selectCourse(event, 1, 26)"><h4>1회차</h4><p>26:00</p></div>
+        <div class="course-btn" onclick="selectCourse(event, 2, 27)"><h4>2회차</h4><p>27:00</p></div>
+        <div class="course-btn" onclick="selectCourse(event, 3, 28)"><h4>3회차</h4><p>28:00</p></div>
+      </div>
+      
+      <h3>이 주차</h3>
+      <div class="grid-wrap">
+        <div class="course-btn" onclick="selectCourse(event, 4, 30)"><h4>4회차</h4><p>30:00</p></div>
+        <div class="course-btn" onclick="selectCourse(event, 5, 33)"><h4>5회차</h4><p>33:00</p></div>
+        <div class="course-btn" onclick="selectCourse(event, 6, 34)"><h4>6회차</h4><p>34:00</p></div>
+      </div>
+
+      <h3>삼 주차</h3>
+      <div class="grid-wrap">
+        <div class="course-btn" onclick="selectCourse(event, 7, 37)"><h4>7회차</h4><p>37:00</p></div>
+        <div class="course-btn" onclick="selectCourse(event, 8, 36)"><h4>8회차</h4><p>36:00</p></div>
+        <div class="course-btn" onclick="selectCourse(event, 9, 36)"><h4>9회차</h4><p>36:00</p></div>
+      </div>
+
+      <h3>사 주차</h3>
+      <div class="grid-wrap">
+        <div class="course-btn" onclick="selectCourse(event, 10, 36)"><h4>10회차</h4><p>36:00</p></div>
+        <div class="course-btn" onclick="selectCourse(event, 11, 36)"><h4>11회차</h4><p>36:30</p></div>
+        <div class="course-btn" onclick="selectCourse(event, 12, 38)"><h4>12회차</h4><p>38:00</p></div>
+      </div>
+    </div>
+
+    <div id="actionArea" style="display: none; text-align: center; padding: 20px;">
+      <p id="selectedCourseText" style="margin-bottom: 15px; font-size: 16px;"></p>
+      <button id="startBtn">훈련 시작하기</button>
+    </div>
+
+    <div id="timerScreen" style="display: none; text-align: center;">
+      <h2 id="currentStageText" style="font-size: 32px; margin-top: 50px; color: #6a5acd;">준비</h2>
+      <div id="intervalTimeDisplay" style="font-size: 80px; font-weight: bold; margin: 20px 0;">00:00</div>
+      <p style="font-size: 18px;">남은 총 시간: <strong id="totalTimeDisplay">00:00</strong></p>
+      <div id="nextStageText" style="margin: 20px 0; color: #888; font-size: 16px;">다음: -</div>
+      
+      <div style="display: flex; gap: 10px; justify-content: center; margin-top: 40px;">
+        <button id="pauseBtn" class="control-btn">일시 정지</button>
+        <button id="stopBtn" class="control-btn stop-btn">운동 종료</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 자바스크립트 파일 연결 꼬리표를 새롭게 달아줍니다 -->
+  <script src="main.js?v=8"></script>
 </body>
 </html>
