@@ -4,115 +4,76 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>나만의 슬로우 조깅</title>
+  
+  <!-- 스마트폰 앱 설치를 위한 필수 코드 -->
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <link rel="manifest" href="manifest.json">
   
-  <!-- CSS 디자인 코드를 파일 내부에 직접 삽입하여 깨짐 현상을 100% 방지합니다 -->
+  <!-- [디자인 영역] 파일이 갈라지지 않도록 여기에 완전히 묶어버립니다 -->
   <style>
     :root {
-      --bg-color: #f4f4f9;
-      --app-bg: #ffffff;
-      --text-color: #333333;
-      --btn-bg: #ffffff;
-      --btn-border: #dddddd;
-      --primary-color: #6a5acd;
-      --run-bg: #ffe4e1;
-      --walk-bg: #e0ffff;
+      --bg-color: #f4f4f9; --app-bg: #ffffff; --text-color: #333333;
+      --btn-bg: #ffffff; --btn-border: #dddddd; --primary-color: #6a5acd;
+      --run-bg: #ffe4e1; --walk-bg: #e0ffff;
     }
-
     body[data-theme="dark"] {
-      --bg-color: #000000;
-      --app-bg: #121212;
-      --text-color: #ffffff;
-      --btn-bg: #1e1e1e;
-      --btn-border: #444444;
-      --run-bg: #4a1c1c;
-      --walk-bg: #1c3c4a;
+      --bg-color: #000000; --app-bg: #121212; --text-color: #ffffff;
+      --btn-bg: #1e1e1e; --btn-border: #444444;
+      --run-bg: #4a1c1c; --walk-bg: #1c3c4a;
     }
-
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: var(--bg-color);
-      color: var(--text-color);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      margin: 0; padding: 0;
+      background-color: var(--bg-color); color: var(--text-color);
       transition: background-color 0.3s;
     }
-
     #appContainer {
-      max-width: 480px;
-      margin: 0 auto;
-      background-color: var(--app-bg);
-      min-height: 100vh;
-      box-shadow: 0 0 20px rgba(0,0,0,0.1);
-      padding-bottom: 20px;
+      max-width: 480px; margin: 0 auto;
+      background-color: var(--app-bg); min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1); padding-bottom: 20px;
       transition: background-color 0.5s ease-in-out;
     }
-
     #appContainer.run-mode { background-color: var(--run-bg); }
     #appContainer.walk-mode { background-color: var(--walk-bg); }
-
     header { display: flex; justify-content: space-between; align-items: center; padding: 20px; }
     header h1 { font-size: 20px; margin: 0; }
-
     #themeToggle {
       padding: 8px 12px; border-radius: 20px; border: 1px solid var(--btn-border);
       background: var(--btn-bg); color: var(--text-color); cursor: pointer;
     }
-
     section.intro { padding: 0 20px 20px 20px; }
     section.intro h2 { color: var(--primary-color); font-size: 18px; margin: 0 0 5px 0; }
     section.intro p { color: #888; font-size: 14px; margin: 0; }
-
     h3 { margin: 10px 20px; }
-
     .grid-wrap {
       display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 0 20px 20px 20px;
     }
-
     .course-btn {
-      position: relative;
-      border: 1px solid var(--btn-border); 
-      border-radius: 12px; 
-      padding: 15px; 
-      text-align: center; 
-      cursor: pointer;
-      transition: all 0.2s;
+      position: relative; border: 1px solid var(--btn-border); border-radius: 12px; 
+      padding: 15px; text-align: center; cursor: pointer; transition: all 0.2s;
       background-color: var(--btn-bg);
     }
-    .course-btn h4 { margin: 0 0 5px 0; font-size: 16px; color: var(--text-color); }
-    .course-btn p { margin: 0; color: #888; font-size: 12px; }
-
+    .course-btn h4 { margin: 0 0 5px 0; font-size: 16px; color: var(--text-color); pointer-events: none; }
+    .course-btn p { margin: 0; color: #888; font-size: 12px; pointer-events: none; }
     .course-btn.active {
-      border-color: var(--primary-color);
-      background-color: rgba(106, 90, 205, 0.1);
-      transform: scale(1.05);
+      border-color: var(--primary-color); background-color: rgba(106, 90, 205, 0.1); transform: scale(1.05);
     }
-
     .course-btn.done {
-      background-color: var(--primary-color);
-      border-color: var(--primary-color);
+      background-color: var(--primary-color); border-color: var(--primary-color);
     }
-    .course-btn.done h4, .course-btn.done p { 
-      color: white; 
-      text-decoration: line-through; 
-    }
-
+    .course-btn.done h4, .course-btn.done p { color: white; text-decoration: line-through; }
     .completed-stamp {
       position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-15deg);
       font-size: 18px; font-weight: bold; color: rgba(255,255,255,0.9);
-      border: 2px solid rgba(255,255,255,0.9); padding: 2px 5px; border-radius: 5px;
-      pointer-events: none;
+      border: 2px solid rgba(255,255,255,0.9); padding: 2px 5px; border-radius: 5px; pointer-events: none;
     }
-
     #startBtn {
       background-color: var(--primary-color); color: white; border: none;
       padding: 15px 30px; border-radius: 30px; font-size: 18px; font-weight: bold;
       cursor: pointer; width: 80%; box-shadow: 0 4px 10px rgba(106, 90, 205, 0.4);
     }
-
     .control-btn {
       padding: 15px 25px; border-radius: 10px; border: none; font-size: 16px; font-weight: bold;
       background-color: #555; color: white; cursor: pointer; width: 120px;
@@ -121,8 +82,8 @@
   </style>
 </head>
 <body data-theme="light">
+  
   <div id="appContainer" class="container">
-    
     <header>
       <h1>나만의 슬로우 조깅</h1>
       <button id="themeToggle">다크 모드</button>
@@ -134,32 +95,33 @@
         <p>휴식 없이 30분 달리기를 향해 출발!</p>
       </section>
 
+      <!-- 에러 원천 차단: 직관적인 onclick 명령어로 강제 복구했습니다. -->
       <h3>일 주차</h3>
       <div class="grid-wrap">
-        <div class="course-btn" onclick="selectCourse(event, 1, 26)"><h4>1회차</h4><p>26:00</p></div>
-        <div class="course-btn" onclick="selectCourse(event, 2, 27)"><h4>2회차</h4><p>27:00</p></div>
-        <div class="course-btn" onclick="selectCourse(event, 3, 28)"><h4>3회차</h4><p>28:00</p></div>
+        <div class="course-btn" onclick="selectCourse(1, 26, this)"><h4>1회차</h4><p>26:00</p></div>
+        <div class="course-btn" onclick="selectCourse(2, 27, this)"><h4>2회차</h4><p>27:00</p></div>
+        <div class="course-btn" onclick="selectCourse(3, 28, this)"><h4>3회차</h4><p>28:00</p></div>
       </div>
       
       <h3>이 주차</h3>
       <div class="grid-wrap">
-        <div class="course-btn" onclick="selectCourse(event, 4, 30)"><h4>4회차</h4><p>30:00</p></div>
-        <div class="course-btn" onclick="selectCourse(event, 5, 33)"><h4>5회차</h4><p>33:00</p></div>
-        <div class="course-btn" onclick="selectCourse(event, 6, 34)"><h4>6회차</h4><p>34:00</p></div>
+        <div class="course-btn" onclick="selectCourse(4, 30, this)"><h4>4회차</h4><p>30:00</p></div>
+        <div class="course-btn" onclick="selectCourse(5, 33, this)"><h4>5회차</h4><p>33:00</p></div>
+        <div class="course-btn" onclick="selectCourse(6, 34, this)"><h4>6회차</h4><p>34:00</p></div>
       </div>
 
       <h3>삼 주차</h3>
       <div class="grid-wrap">
-        <div class="course-btn" onclick="selectCourse(event, 7, 37)"><h4>7회차</h4><p>37:00</p></div>
-        <div class="course-btn" onclick="selectCourse(event, 8, 36)"><h4>8회차</h4><p>36:00</p></div>
-        <div class="course-btn" onclick="selectCourse(event, 9, 36)"><h4>9회차</h4><p>36:00</p></div>
+        <div class="course-btn" onclick="selectCourse(7, 37, this)"><h4>7회차</h4><p>37:00</p></div>
+        <div class="course-btn" onclick="selectCourse(8, 36, this)"><h4>8회차</h4><p>36:00</p></div>
+        <div class="course-btn" onclick="selectCourse(9, 36, this)"><h4>9회차</h4><p>36:00</p></div>
       </div>
 
       <h3>사 주차</h3>
       <div class="grid-wrap">
-        <div class="course-btn" onclick="selectCourse(event, 10, 36)"><h4>10회차</h4><p>36:00</p></div>
-        <div class="course-btn" onclick="selectCourse(event, 11, 36)"><h4>11회차</h4><p>36:30</p></div>
-        <div class="course-btn" onclick="selectCourse(event, 12, 38)"><h4>12회차</h4><p>38:00</p></div>
+        <div class="course-btn" onclick="selectCourse(10, 36, this)"><h4>10회차</h4><p>36:00</p></div>
+        <div class="course-btn" onclick="selectCourse(11, 36, this)"><h4>11회차</h4><p>36:30</p></div>
+        <div class="course-btn" onclick="selectCourse(12, 38, this)"><h4>12회차</h4><p>38:00</p></div>
       </div>
     </div>
 
@@ -179,10 +141,323 @@
         <button id="stopBtn" class="control-btn stop-btn">운동 종료</button>
       </div>
     </div>
-
   </div>
 
-  <!-- 자바스크립트 파일 연결 꼬리표를 새롭게 달아줍니다 -->
-  <script src="main.js?v=8"></script>
+  <!-- [기능 엔진 영역] 자바스크립트도 이 파일 안에 완전히 박아 넣습니다 -->
+  <script>
+    const allSessions = {
+        1: [
+            { name: "웜업 (걷기)", time: 240, type: "walk", audio: "start" }, 
+            { name: "천천히 달리기", time: 60, type: "run", audio: "run" },
+            { name: "보통 속도 걷기", time: 60, type: "walk", audio: "walk" },
+            { name: "천천히 달리기", time: 60, type: "run", audio: "run" },
+            { name: "보통 속도 걷기", time: 60, type: "walk", audio: "walk" },
+            { name: "천천히 달리기", time: 60, type: "run", audio: "run" },
+            { name: "보통 속도 걷기", time: 60, type: "walk", audio: "walk" },
+            { name: "천천히 달리기", time: 60, type: "run", audio: "run" },
+            { name: "보통 속도 걷기", time: 60, type: "walk", audio: "walk" },
+            { name: "천천히 달리기", time: 120, type: "run", audio: "run" },
+            { name: "보통 속도 걷기", time: 120, type: "walk", audio: "walk" },
+            { name: "천천히 달리기", time: 120, type: "run", audio: "run" },
+            { name: "보통 속도 걷기", time: 120, type: "walk", audio: "walk" },
+            { name: "마지막 달리기", time: 180, type: "run", audio: "run" },
+            { name: "쿨다운 (걷기)", time: 180, type: "walk", audio: "cooldown" }
+        ],
+        2: [ 
+            { name: "웜업 (걷기)", time: 240, type: "walk", audio: "start" }, 
+            { name: "천천히 달리기", time: 120, type: "run", audio: "run" }, 
+            { name: "보통 속도 걷기", time: 60, type: "walk", audio: "walk" },
+            { name: "천천히 달리기", time: 180, type: "run", audio: "run" },
+            { name: "보통 속도 걷기", time: 60, type: "walk", audio: "walk" },
+            { name: "마지막 달리기", time: 180, type: "run", audio: "run" },
+            { name: "쿨다운 (걷기)", time: 180, type: "walk", audio: "cooldown" } 
+        ],
+        3: [ 
+            { name: "웜업 (걷기)", time: 240, type: "walk", audio: "start" }, 
+            { name: "천천히 달리기", time: 180, type: "run", audio: "run" }, 
+            { name: "보통 속도 걷기", time: 60, type: "walk", audio: "walk" },
+            { name: "천천히 달리기", time: 240, type: "run", audio: "run" },
+            { name: "쿨다운 (걷기)", time: 180, type: "walk", audio: "cooldown" } 
+        ],
+        4: [ 
+            { name: "웜업 (걷기)", time: 180, type: "walk", audio: "start" }, 
+            { name: "천천히 달리기", time: 300, type: "run", audio: "run" }, 
+            { name: "보통 속도 걷기", time: 120, type: "walk", audio: "walk" },
+            { name: "마지막 달리기", time: 300, type: "run", audio: "run" },
+            { name: "쿨다운 (걷기)", time: 180, type: "walk", audio: "cooldown" } 
+        ],
+        5: [ 
+            { name: "웜업 (걷기)", time: 180, type: "walk", audio: "start" }, 
+            { name: "천천히 달리기", time: 420, type: "run", audio: "run" }, 
+            { name: "보통 속도 걷기", time: 120, type: "walk", audio: "walk" },
+            { name: "마지막 달리기", time: 420, type: "run", audio: "run" },
+            { name: "쿨다운 (걷기)", time: 180, type: "walk", audio: "cooldown" } 
+        ],
+        6: [ 
+            { name: "웜업 (걷기)", time: 180, type: "walk", audio: "start" }, 
+            { name: "천천히 달리기", time: 600, type: "run", audio: "run" }, 
+            { name: "보통 속도 걷기", time: 120, type: "walk", audio: "walk" },
+            { name: "마지막 달리기", time: 600, type: "run", audio: "run" },
+            { name: "쿨다운 (걷기)", time: 180, type: "walk", audio: "cooldown" } 
+        ],
+        7: [ 
+            { name: "웜업 (걷기)", time: 180, type: "walk", audio: "start" }, 
+            { name: "천천히 달리기", time: 720, type: "run", audio: "run" }, 
+            { name: "보통 속도 걷기", time: 120, type: "walk", audio: "walk" },
+            { name: "마지막 달리기", time: 720, type: "run", audio: "run" },
+            { name: "쿨다운 (걷기)", time: 180, type: "walk", audio: "cooldown" } 
+        ],
+        8: [ 
+            { name: "웜업 (걷기)", time: 180, type: "walk", audio: "start" }, 
+            { name: "천천히 달리기", time: 900, type: "run", audio: "run" }, 
+            { name: "보통 속도 걷기", time: 120, type: "walk", audio: "walk" },
+            { name: "마지막 달리기", time: 900, type: "run", audio: "run" },
+            { name: "쿨다운 (걷기)", time: 180, type: "walk", audio: "cooldown" } 
+        ],
+        9: [ 
+            { name: "웜업 (걷기)", time: 180, type: "walk", audio: "start" }, 
+            { name: "천천히 달리기", time: 1200, type: "run", audio: "run" }, 
+            { name: "보통 속도 걷기", time: 120, type: "walk", audio: "walk" },
+            { name: "마지막 달리기", time: 1200, type: "run", audio: "run" },
+            { name: "쿨다운 (걷기)", time: 180, type: "walk", audio: "cooldown" } 
+        ],
+        10: [ 
+            { name: "웜업 (걷기)", time: 180, type: "walk", audio: "start" }, 
+            { name: "천천히 달리기", time: 1500, type: "run", audio: "run" }, 
+            { name: "보통 속도 걷기", time: 120, type: "walk", audio: "walk" },
+            { name: "마지막 달리기", time: 1500, type: "run", audio: "run" },
+            { name: "쿨다운 (걷기)", time: 180, type: "walk", audio: "cooldown" } 
+        ],
+        11: [ 
+            { name: "웜업 (걷기)", time: 180, type: "walk", audio: "start" }, 
+            { name: "천천히 달리기", time: 1680, type: "run", audio: "run" }, 
+            { name: "쿨다운 (걷기)", time: 180, type: "walk", audio: "cooldown" } 
+        ],
+        12: [ 
+            { name: "웜업 (걷기)", time: 180, type: "walk", audio: "start" }, 
+            { name: "천천히 달리기 30분", time: 1800, type: "run", audio: "run" }, 
+            { name: "쿨다운 (걷기)", time: 300, type: "walk", audio: "cooldown" } 
+        ]
+    };
+
+    let currentSelectedCourse = 0;
+    let currentPlan = [];
+    let currentStageIndex = 0;
+    let currentIntervalTime = 0;
+    let totalTimeRemaining = 0;
+    let timerInterval;
+    let isPaused = false;
+    let currentAudioPlayer = null; 
+    let audioCtx;
+
+    // 코스 선택 함수 (무조건 작동하게 전역으로 설정)
+    window.selectCourse = function(courseNumber, minutes, element) {
+        currentSelectedCourse = courseNumber;
+        
+        // 모든 버튼 활성화 제거 후 방금 누른 버튼만 켜기
+        const allButtons = document.querySelectorAll('.course-btn');
+        allButtons.forEach(btn => btn.classList.remove('active'));
+        element.classList.add('active');
+        
+        document.getElementById('actionArea').style.display = 'block';
+        document.getElementById('calendarScreen').style.paddingBottom = "100px";
+        document.getElementById('selectedCourseText').innerHTML = `현재 선택: <strong>${courseNumber}회차 (총 ${minutes}분 코스)</strong>`;
+    };
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const themeToggle = document.getElementById('themeToggle');
+        const startBtn = document.getElementById('startBtn');
+        const pauseBtn = document.getElementById('pauseBtn');
+        const stopBtn = document.getElementById('stopBtn');
+
+        // 도장 찍기 로직
+        function loadStamps() {
+            let completedCourses = JSON.parse(localStorage.getItem('joyRunRecords') || '[]');
+            const allButtons = document.querySelectorAll('.course-btn');
+            
+            allButtons.forEach((btn, index) => {
+                const courseNum = index + 1;
+                if (completedCourses.includes(courseNum)) {
+                    btn.classList.add('done');
+                    if (!btn.querySelector('.completed-stamp')) {
+                        const stamp = document.createElement('div');
+                        stamp.className = 'completed-stamp';
+                        stamp.innerText = 'CLEAR';
+                        btn.appendChild(stamp);
+                    }
+                }
+            });
+        }
+        loadStamps();
+
+        // 다크 모드
+        themeToggle.addEventListener('click', () => {
+            if (document.body.getAttribute('data-theme') === 'dark') {
+                document.body.setAttribute('data-theme', 'light');
+                themeToggle.textContent = '다크 모드';
+            } else {
+                document.body.setAttribute('data-theme', 'dark');
+                themeToggle.textContent = '라이트 모드';
+            }
+        });
+
+        // 시작 버튼 (비프음 및 음성 강제 활성화 포함)
+        startBtn.addEventListener('click', () => {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            
+            currentPlan = allSessions[currentSelectedCourse];
+            if(!currentPlan) {
+                alert("오류: 훈련표를 불러올 수 없습니다.");
+                return;
+            }
+
+            document.getElementById('calendarScreen').style.display = 'none';
+            document.getElementById('actionArea').style.display = 'none';
+            document.getElementById('timerScreen').style.display = 'block';
+            currentStageIndex = 0;
+            
+            totalTimeRemaining = currentPlan.reduce((total, stage) => total + stage.time, 0);
+            currentIntervalTime = currentPlan[0].time;
+            
+            updateTimerUI();
+            playVoice('start');
+            
+            timerInterval = setInterval(() => {
+                if (!isPaused) {
+                    currentIntervalTime--;
+                    totalTimeRemaining--;
+
+                    if (currentIntervalTime === 3 || currentIntervalTime === 2 || currentIntervalTime === 1) {
+                        playBeep('short');
+                    }
+                    
+                    if (currentIntervalTime <= 0) {
+                        playBeep('long');
+                        currentStageIndex++;
+                        
+                        if (currentStageIndex >= currentPlan.length) {
+                            clearInterval(timerInterval);
+                            playVoice('finish', () => {
+                                let completedCourses = JSON.parse(localStorage.getItem('joyRunRecords') || '[]');
+                                if (!completedCourses.includes(currentSelectedCourse)) {
+                                    completedCourses.push(currentSelectedCourse);
+                                    localStorage.setItem('joyRunRecords', JSON.stringify(completedCourses));
+                                }
+                                alert(`수고하셨습니다! ${currentSelectedCourse}회차 도장이 찍혔습니다!`);
+                                location.reload();
+                            });
+                            return;
+                        }
+                        
+                        let nextAudioType = currentPlan[currentStageIndex].audio;
+                        if(nextAudioType) {
+                            playVoice(nextAudioType);
+                        }
+                        currentIntervalTime = currentPlan[currentStageIndex].time;
+                    }
+                    updateTimerUI();
+                }
+            }, 1000);
+        });
+
+        pauseBtn.addEventListener('click', () => {
+            isPaused = !isPaused;
+            if (isPaused) {
+                pauseBtn.textContent = "다시 시작";
+                pauseBtn.style.backgroundColor = "#27ae60";
+                playVoice('pause');
+            } else {
+                pauseBtn.textContent = "일시 정지";
+                pauseBtn.style.backgroundColor = "#555";
+                playVoice('resume');
+            }
+        });
+
+        stopBtn.addEventListener('click', () => {
+            const wasPaused = isPaused;
+            isPaused = true; 
+            playVoice('ask_stop', () => {
+                setTimeout(() => {
+                    if (confirm("정말 운동을 종료하시겠습니까? (종료하면 도장이 찍히지 않습니다)")) {
+                        clearInterval(timerInterval);
+                        playVoice('stop', () => { location.reload(); });
+                    } else {
+                        isPaused = wasPaused;
+                        playVoice('continue');
+                    }
+                }, 100);
+            });
+        });
+    });
+
+    function formatTime(seconds) {
+        const min = Math.floor(seconds / 60);
+        const sec = seconds % 60;
+        return `${String(min).padStart(2, '0')}:${String(sec).padStart(2, '0')}`;
+    }
+
+    function updateTimerUI() {
+        document.getElementById('intervalTimeDisplay').textContent = formatTime(currentIntervalTime);
+        document.getElementById('totalTimeDisplay').textContent = formatTime(totalTimeRemaining);
+        
+        const stage = currentPlan[currentStageIndex];
+        if(!stage) return; 
+
+        document.getElementById('currentStageText').textContent = stage.name;
+        const appContainer = document.getElementById('appContainer');
+        appContainer.className = 'container ' + (stage.type === 'run' ? 'run-mode' : 'walk-mode');
+
+        if (currentStageIndex + 1 < currentPlan.length) {
+            const nextStage = currentPlan[currentStageIndex + 1];
+            document.getElementById('nextStageText').textContent = `다음: ${nextStage.name} (${Math.floor(nextStage.time / 60)}분)`;
+        } else {
+            document.getElementById('nextStageText').textContent = "다음: 운동 완료!";
+        }
+    }
+
+    function playBeep(type) {
+        if (!audioCtx) return;
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        
+        if (type === 'short') {
+            osc.frequency.value = 400; gain.gain.value = 0.1;
+            osc.start(); osc.stop(audioCtx.currentTime + 0.15); 
+        } else if (type === 'long') {
+            osc.frequency.value = 800; gain.gain.value = 0.15;
+            osc.start(); osc.stop(audioCtx.currentTime + 0.6);
+        }
+    }
+
+    function playVoice(fileName, callback) {
+        if (currentAudioPlayer) {
+            currentAudioPlayer.pause();
+            currentAudioPlayer.currentTime = 0;
+        }
+        currentAudioPlayer = new Audio(`sounds/${fileName}.mp3`);
+        currentAudioPlayer.play().catch(error => {
+            console.warn(`${fileName}.mp3 파일 재생 실패:`, error);
+            if(callback) callback(); 
+        });
+        currentAudioPlayer.onended = () => { if (callback) callback(); };
+    }
+
+    // 서비스 워커(캐시) 강제 삭제 (옛날 기억을 완벽히 소거합니다)
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function(registrations) {
+            for(let registration of registrations) { registration.unregister(); }
+        });
+        caches.keys().then(function(names) {
+            for (let name of names) { caches.delete(name); }
+        });
+    }
+  </script>
 </body>
 </html>

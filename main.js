@@ -1,4 +1,3 @@
-/* 1회차부터 12회차까지 모든 훈련 데이터와 성우 오디오 타이밍 세팅 */
 const allSessions = {
     1: [
         { name: "웜업 (걷기)", time: 240, type: "walk", audio: "start" }, 
@@ -143,8 +142,29 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // ★ 가장 중요한 수정 부분: 자바스크립트가 직접 버튼을 찾아서 클릭 이벤트를 강제로 붙여줍니다!
+    const courseButtons = document.querySelectorAll('.course-btn');
+    courseButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const courseNumber = parseInt(this.getAttribute('data-course'));
+            const minutes = parseInt(this.getAttribute('data-minutes'));
+
+            currentSelectedCourse = courseNumber;
+            
+            // 모든 버튼의 활성화 효과 제거 후 누른 버튼만 켜주기
+            courseButtons.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            
+            // 시작 버튼 영역 나타나게 하기
+            document.getElementById('actionArea').style.display = 'block';
+            document.getElementById('calendarScreen').style.paddingBottom = "100px";
+            
+            // 몇 회차인지 글씨 써주기
+            document.getElementById('selectedCourseText').innerHTML = `현재 선택: <strong>${courseNumber}회차 (총 ${minutes}분 코스)</strong>`;
+        });
+    });
+
     startBtn.addEventListener('click', () => {
-        // ★스마트폰에서 비프음이 씹히지 않도록 강제 활성화시키는 마법의 코드
         if (!audioCtx) {
             audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         }
@@ -174,12 +194,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 currentIntervalTime--;
                 totalTimeRemaining--;
 
-                // 3초, 2초, 1초 남았을 때 짤막한 비프음 발생
                 if (currentIntervalTime === 3 || currentIntervalTime === 2 || currentIntervalTime === 1) {
                     playBeep('short');
                 }
                 
-                // 시간이 다 되었을 때(0초) 길게 비프음 발생 및 다음 스테이지로 넘어감
                 if (currentIntervalTime <= 0) {
                     playBeep('long');
                     currentStageIndex++;
@@ -244,19 +262,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
-function selectCourse(e, courseNumber, minutes) {
-    currentSelectedCourse = courseNumber;
-    const allButtons = document.querySelectorAll('.course-btn');
-    
-    allButtons.forEach(btn => btn.classList.remove('active'));
-    e.currentTarget.classList.add('active');
-    
-    document.getElementById('actionArea').style.display = 'block';
-    document.getElementById('calendarScreen').style.paddingBottom = "100px";
-    
-    document.getElementById('selectedCourseText').innerHTML = `현재 선택: <strong>${courseNumber}회차 (총 ${minutes}분 코스)</strong>`;
-}
-
 function formatTime(seconds) {
     const min = Math.floor(seconds / 60);
     const sec = seconds % 60;
@@ -282,7 +287,6 @@ function updateTimerUI() {
     }
 }
 
-// 삐- 소리를 내는 오디오 엔진
 function playBeep(type) {
     if (!audioCtx) return;
     const osc = audioCtx.createOscillator();
@@ -303,14 +307,12 @@ function playBeep(type) {
     }
 }
 
-// 성우 음성 파일 재생기
 function playVoice(fileName, callback) {
     if (currentAudioPlayer) {
         currentAudioPlayer.pause();
         currentAudioPlayer.currentTime = 0;
     }
     
-    // ★수정된 부분: 올려주신 캡처 이미지에 맞춰 폴더 이름을 'sounds'로 완벽하게 일치시켰습니다!
     currentAudioPlayer = new Audio(`sounds/${fileName}.mp3`);
     
     currentAudioPlayer.play().catch(error => {
