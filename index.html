@@ -270,6 +270,24 @@
         const pauseBtn = document.getElementById('pauseBtn');
         const stopBtn = document.getElementById('stopBtn');
 
+        // ★ [완벽 해결] 다크 모드/라이트 모드 상태 기억 및 불러오기 추가
+        const savedTheme = localStorage.getItem('jogging-theme') || 'light';
+        document.body.setAttribute('data-theme', savedTheme);
+        themeToggle.textContent = savedTheme === 'dark' ? '라이트 모드' : '다크 모드';
+
+        // ★ [완벽 해결] 버튼 클릭 시 상태 저장 로직 업데이트
+        themeToggle.addEventListener('click', () => {
+            if (document.body.getAttribute('data-theme') === 'dark') {
+                document.body.setAttribute('data-theme', 'light');
+                themeToggle.textContent = '다크 모드';
+                localStorage.setItem('jogging-theme', 'light');
+            } else {
+                document.body.setAttribute('data-theme', 'dark');
+                themeToggle.textContent = '라이트 모드';
+                localStorage.setItem('jogging-theme', 'dark');
+            }
+        });
+
         // 도장 찍기 로직
         function loadStamps() {
             let completedCourses = JSON.parse(localStorage.getItem('joyRunRecords') || '[]');
@@ -289,17 +307,6 @@
             });
         }
         loadStamps();
-
-        // 다크 모드
-        themeToggle.addEventListener('click', () => {
-            if (document.body.getAttribute('data-theme') === 'dark') {
-                document.body.setAttribute('data-theme', 'light');
-                themeToggle.textContent = '다크 모드';
-            } else {
-                document.body.setAttribute('data-theme', 'dark');
-                themeToggle.textContent = '라이트 모드';
-            }
-        });
 
         // 시작 버튼 (비프음 및 음성 강제 활성화 포함)
         startBtn.addEventListener('click', () => {
